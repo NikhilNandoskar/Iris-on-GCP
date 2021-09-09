@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<!--From https://codepen.io/frytyler/pen/EGdtg-->
+<head>
+  <meta charset="UTF-8">
+  <title>Iris Prediction</title>
+  <style>
+  .container { 
+      position: absolute;
+      left: 2%;
+    }
+
+  * {
+     box-sizing: border-box;
+     }
+
+  .column {
+     float: left;
+     width: 50%;
+     padding: 5px;
+     }
+
+  .row::after {
+     content: "";
+     clear: both;
+     display: table;
+     }
+  img {
+     border: 5px solid #555;
+     }
+  @media screen and (max-width: 50px) {
+     .column {
+        width: 100%;
+       }
+   
+   </style>
+   
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+  
+</head>
+
+<body>
+ <div>
+    <h1>Iris Prediction</h1>
+     <p> Iris is a flower Dataset. The dataset contains 3 classes of 50 instances each, where each class refers to a type of Iris Specie.</p>
+
+    <h2>Exploratory Data Analysis</h2>
+     <div class="row">
+       <div class="column">
+         <img src="{{url_for('static', filename='Images/Histogram.jpg')}}" alt="Histogram" style="width:100%"/>
+       </div>
+     
+       <div class="column">
+        <img src="{{url_for('static', filename='Images/Boxplot.jpg')}}" alt="Boxplot" style="width:100%"/>
+       </div>
+     </div>
+
+     <div class="row">
+       <div class="column">
+        <img src="{{url_for('static', filename='Images/HeatMap.jpg')}}" alt="HeatMap" style="width:100%"/>
+       </div>
+
+       <div class="column">
+        <img src="{{url_for('static', filename='Images/Class_Balance.jpg')}}" alt="Class Balance" style="width:100%"/>
+       </div>
+     </div>
+ </div>  
+   
+  <!-- Main Input For Receiving Query to our ML -->
+  <h4 style="font-size: 1.5em"> Swipe To Get Test Inputs </h4>
+   <p>
+     Slide to set values for all the features. The minimum and maximum value per feature is fixed. Choose a model and hit Predict.
+     Output will be one of the three species of Iris viz Setosa, Versicolor, Virginica. 
+   </p>
+   <br>
+    <div class="container">
+      
+      <form action="/" method="post">
+        <label for="Sepal Legth"><b>Sepal Length</b></label>
+        <p>
+        <input type="range" id="SepalLengthInput" name="SepalLengthInput" min="4" max="8" value="0" step="0.1"
+          oninput="amount1.value=SepalLengthInput.value">                                                       
+        <output id="amount1" name="amount1" for="rangeInput">0</output>
+        </p>
+
+        <label for="Sepal Width"><b>Sepal Width</b></label>
+        <p>
+        <input type="range" id="SepalWidthInput" name="SepalWidthInput" min="2" max="5" value="0" step="0.1"
+          oninput="amount2.value=SepalWidthInput.value">                                                       
+        <output id="amount2" name="amount2" for="rangeInput">0</output>
+        </p>
+      
+        <label for="Petal Legth"><b>Petal Length</b></label>
+        <p>
+        <input type="range" id="PetalLengthInput" name="PetalLengthInput" min="1" max="7" value="0" step="0.1"
+          oninput="amount3.value=PetalLengthInput.value">                                                       
+        <output id="amount3" name="amount3" for="rangeInput">0</output>
+        </p>
+
+        <label for="Petal Width"><b>Petal Width</b></label>
+        <p>
+        <input type="range" id="PetalWidthInput" name="PetalWidthInput" min="0" max="3" value="0" step="0.1"
+          oninput="amount4.value=PetalWidthInput.value">                                                       
+        <output id="amount4" name="amount4" for="rangeInput">0</output>
+        </p>
+          
+        <label for="Models">Choose Model for Prediction:</label>
+          <select name="Models">
+            <option value="Logistic Regression">Logistic Regression</option>
+            <option value="Support Vector Machine">Support Vector Machine</option>
+          </select>        
+        <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+      </form>
+    
+      <br>
+      Given Flower Features Belongs to <b><i><font color="blue",style="size:40px">{{prediction_text}}</font></i></b> as per <b><i><font color="red",style="size:40px">{{model_name}}</font></i></b>.
+    </div>
+</body>
+</html>
